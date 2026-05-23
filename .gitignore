@@ -1,0 +1,43 @@
+# --- Secrets ---------------------------------------------------------------
+# NEVER commit real API keys. .env.example (placeholders) IS committed; .env is not.
+.env
+.env.local
+.env.*.local
+
+# --- Python build / runtime ------------------------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+build/
+dist/
+
+# --- Virtualenvs (machine-specific, large) ---------------------------------
+.venv/
+venv/
+env/
+
+# --- Test / lint caches ----------------------------------------------------
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+
+# --- SpecTrojan run artifacts ----------------------------------------------
+# .llm_cache holds raw LLM responses — regenerable and can leak prompts;
+# do not commit. Note: evals/runs/ IS committed (small JSON, used by judges
+# for reproducibility); reports/raw/ is a reserved scratchpad if you ever
+# add intermediate render outputs.
+.llm_cache/
+reports/raw/
+*.log
+
+# --- OS / editor noise -----------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

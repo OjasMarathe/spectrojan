@@ -1,0 +1,40 @@
+{
+  "target": "hamming_distance",
+  "domain": "bio",
+  "intent_only": true,
+  "started_at": "2026-05-22T14:38:53",
+  "n_specs_requested": 4,
+  "n_specs_usable": 0,
+  "specs": [
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 0,
+      "parse_error": "api_error: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01ks790eyef9xsac8zs9f08s8z` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99481, Requested 1018. Please try again in 7m11.135999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    },
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 1,
+      "parse_error": "api_error: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01ks790eyef9xsac8zs9f08s8z` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99479, Requested 1068. Please try again in 7m52.608s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 0,
+      "parse_error": "api_error: ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 57.897166948s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '57s'}]}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 1,
+      "parse_error": "api_error: ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 54.272733295s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    }
+  ],
+  "elapsed_s": 12.224938869476318,
+  "error": "no usable specs"
+}

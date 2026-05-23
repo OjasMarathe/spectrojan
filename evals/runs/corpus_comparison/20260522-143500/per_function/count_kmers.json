@@ -1,0 +1,82 @@
+{
+  "target": "count_kmers",
+  "domain": "bio",
+  "intent_only": true,
+  "started_at": "2026-05-22T14:35:00",
+  "n_specs_requested": 4,
+  "n_specs_usable": 2,
+  "specs": [
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 0,
+      "parse_error": null,
+      "precondition_src": "def precondition(seq: str, k: int) -> bool:\n    return isinstance(seq, str) and isinstance(k, int)",
+      "postcondition_src": "def postcondition(seq: str, k: int, result: dict[str, int]) -> bool:\n    if k <= 0 or k > len(seq):\n        return result == {}\n    else:\n        if not isinstance(result, dict):\n            return False\n        for key, value in result.items():\n            if not isinstance(key, str) or len(key) != k:\n                return False\n            if not isinstance(value, int) or value < 0:\n                return False\n        return True"
+    },
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 1,
+      "parse_error": null,
+      "precondition_src": "def precondition(seq: str, k: int) -> bool:\n    \"\"\"Check if the inputs are in the function's intended domain.\"\"\"\n    return isinstance(seq, str) and isinstance(k, int)",
+      "postcondition_src": "def postcondition(seq: str, k: int, result: dict[str, int]) -> bool:\n    \"\"\"Check if the result is a valid output for these inputs.\"\"\"\n    if k <= 0 or k > len(seq):\n        return result == {}\n    if not precondition(seq, k):\n        return False\n    if not isinstance(result, dict):\n        return False\n    for key, value in result.items():\n        if not isinstance(key, str) or len(key) != k:\n            return False\n        if not isinstance(value, int) or value < 0:\n            return False\n    return True"
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 0,
+      "parse_error": "exec failed: SyntaxError: invalid syntax (<string>, line 1)",
+      "precondition_src": "def precondition(seq: str, k: int) -> bool:\n    \"\"\"\n    Checks if the inputs are in the function's intended domain.\n    \"\"\"\n    if not isinstance(seq, str):\n        return False\n    if not isinstance(k, int):\n        return False\n    # All other constraints (like k <= 0 or k >",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 1,
+      "parse_error": "exec failed: SyntaxError: invalid syntax (<string>, line 1)",
+      "precondition_src": "def precondition(seq: str, k: int) -> bool:\n    \"\"\"\n    Returns True iff the inputs are in the function's intended domain.\n    \"\"\"\n    return isinstance(seq, str) and isinstance(k, int)",
+      "postcondition_src": "def postcondition(seq: str, k: int, result: dict[str, int]) -> bool:"
+    }
+  ],
+  "n_mutants": 18,
+  "mutation_kill_rates": {
+    "groq:llama-3.3-70b-versatile#0": {
+      "kills": 11,
+      "total": 18,
+      "rate": 0.6111111111111112
+    },
+    "groq:llama-3.3-70b-versatile#1": {
+      "kills": 11,
+      "total": 18,
+      "rate": 0.6111111111111112
+    }
+  },
+  "n_disagreements": 0,
+  "disagreement_examples": [],
+  "per_spec_twin_count": {
+    "groq:llama-3.3-70b-versatile#0": 1,
+    "groq:llama-3.3-70b-versatile#1": 2
+  },
+  "n_twins_total": 3,
+  "twins": [
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#0",
+      "distance": 0.435,
+      "strategy": "Return a constant value that the spec happens to permit (e.g. always True, the empty string/list, 0).",
+      "source": "def count_kmers(seq: str, k: int) -> dict[str, int]:\n    return {}\n",
+      "round": 0
+    },
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#1",
+      "distance": 0.4275,
+      "strategy": "Return a constant value that the spec happens to permit (e.g. always True, the empty string/list, 0).",
+      "source": "def count_kmers(seq: str, k: int) -> dict[str, int]:\n    return {}\n",
+      "round": 0
+    },
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#1",
+      "distance": 0.27749999999999997,
+      "strategy": "Use a lookup table that hard-codes a few specific input/output pairs; return a default for everything else.",
+      "source": "def count_kmers(seq: str, k: int) -> dict[str, int]:\n    lookup_table = {\n        (\"A\", 1): {\"A\": 1},\n        (\"AAA\", 1): {\"A\": 3},\n        (\"ACGT\", 2): {\"AC\": 1, \"CG\": 1, \"GT\": 1},\n    }\n    if (seq, k) in lookup_table:\n        return lookup_table[(seq, k)]\n    return {}\n",
+      "round": 1
+    }
+  ],
+  "elapsed_s": 41.90474605560303
+}

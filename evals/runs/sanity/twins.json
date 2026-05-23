@@ -1,0 +1,16 @@
+[
+  {
+    "spec_id": "groq:llama-3.3-70b-versatile:0",
+    "distance": 0.275,
+    "breakdown": {
+      "hypothesis_disagree_rate": 0.0,
+      "example_disagree_rate": 0.5,
+      "invariant_violation_rate": 0.0,
+      "score": 0.275,
+      "n_random": 40,
+      "n_examples": 10
+    },
+    "strategy": "Return a constant value that the spec happens to permit (e.g. always True, the empty string/list, 0).",
+    "source": "def is_safe_sequence(seq: str) -> bool:\n    return True\n"
+  }
+]

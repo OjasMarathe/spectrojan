@@ -1,0 +1,54 @@
+{
+  "target": "gc_content",
+  "domain": "bio",
+  "intent_only": true,
+  "started_at": "2026-05-22T14:38:26",
+  "n_specs_requested": 4,
+  "n_specs_usable": 1,
+  "specs": [
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 0,
+      "parse_error": null,
+      "precondition_src": "def precondition(seq: str) -> bool:\n    \"\"\"Check if input is a string\"\"\"\n    return isinstance(seq, str)",
+      "postcondition_src": "def postcondition(seq: str, result: float) -> bool:\n    \"\"\"Check if result is a valid GC content fraction\"\"\"\n    return (isinstance(result, (int, float)) and \n            0.0 <= result <= 1.0 and \n            (seq == \"\" and result == 0.0 or \n             seq != \"\" and result == (seq.lower().count('g') + seq.lower().count('c')) / len(seq)))"
+    },
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 1,
+      "parse_error": "api_error: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01ks790eyef9xsac8zs9f08s8z` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99510, Requested 1073. Please try again in 8m23.712s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 0,
+      "parse_error": "api_error: ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 25.178386967s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '25s'}]}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 1,
+      "parse_error": "api_error: ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 21.48229762s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '21s'}]}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    }
+  ],
+  "n_mutants": 9,
+  "mutation_kill_rates": {
+    "groq:llama-3.3-70b-versatile#0": {
+      "kills": 7,
+      "total": 9,
+      "rate": 0.7777777777777778
+    }
+  },
+  "n_disagreements": 0,
+  "disagreement_examples": [],
+  "per_spec_twin_count": {
+    "groq:llama-3.3-70b-versatile#0": 0
+  },
+  "n_twins_total": 0,
+  "twins": [],
+  "elapsed_s": 27.25796914100647
+}

@@ -1,0 +1,82 @@
+{
+  "target": "filter_reads_by_quality",
+  "domain": "bio",
+  "intent_only": true,
+  "started_at": "2026-05-22T14:35:42",
+  "n_specs_requested": 4,
+  "n_specs_usable": 2,
+  "specs": [
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 0,
+      "parse_error": null,
+      "precondition_src": "def precondition(reads: list[tuple[str, str]], threshold: float) -> bool:\n    \"\"\"\n    Checks if the inputs are in the function's intended domain.\n    \"\"\"\n    if not isinstance(reads, list) or not all(isinstance(read, tuple) and len(read) == 2 and isinstance(read[0], str) and isinstance(read[1], str) for read in reads):\n        return False\n    if not isinstance(threshold, (int, float)) or threshold < 0:\n        return False\n    for sequence, quality_string in reads:\n        if len(sequence) != len(quality_string):\n            return False\n    return True",
+      "postcondition_src": "def postcondition(reads: list[tuple[str, str]], threshold: float, result: list[tuple[str, str]]) -> bool:\n    \"\"\"\n    Checks if the result is a valid output for the given inputs.\n    \"\"\"\n    if not isinstance(result, list) or not all(isinstance(read, tuple) and len(read) == 2 and isinstance(read[0], str) and isinstance(read[1], str) for read in result):\n        return False\n    if not all(len(sequence) == len(quality_string) for sequence, quality_string in result):\n        return False\n    if not all(any(ord(c) - 33 for c in quality_string) for _, quality_string in result):\n        return False\n    for sequence, quality_string in result:\n        if not quality_string:\n            return False\n        mean_quality = sum(ord(c) - 33 for c in quality_string) / len(quality_string)\n        if mean_quality < threshold:\n            return False\n    for read in reads:\n        if read not in result and read[1] and sum(ord(c) - 33 for c in read[1]) / len(read[1]) >= threshold:\n            return False\n    return True"
+    },
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 1,
+      "parse_error": null,
+      "precondition_src": "def precondition(reads: list[tuple[str, str]], threshold: float) -> bool:\n    \"\"\"Checks if the inputs are in the function's intended domain.\"\"\"\n    return all(\n        isinstance(read, tuple) and len(read) == 2 and \n        isinstance(read[0], str) and isinstance(read[1], str) and \n        len(read[0]) == len(read[1]) \n        for read in reads\n    ) and isinstance(threshold, (int, float))",
+      "postcondition_src": "def postcondition(reads: list[tuple[str, str]], threshold: float, result: list[tuple[str, str]]) -> bool:\n    \"\"\"Checks if the result is a valid output for the given inputs.\"\"\"\n    return (\n        isinstance(result, list) and \n        all(isinstance(read, tuple) and len(read) == 2 and \n            isinstance(read[0], str) and isinstance(read[1], str) for read in result) and \n        all(read in reads for read in result) and \n        all(\n            sum(ord(c) - 33 for c in read[1]) / len(read[1]) >= threshold \n            for read in result if read[1]\n        ) and \n        all(read[1] for read in result)\n    )"
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 0,
+      "parse_error": "exec failed: SyntaxError: unterminated triple-quoted string literal (detected at line 7) (<string>, line 3)",
+      "precondition_src": "def precondition(reads: list[tuple[str, str]], threshold: float) -> bool:\n    \"\"\"\n    Checks if the inputs to filter_reads_by_quality are valid.\n    - 'reads' must be a list.\n    - 'threshold' must be a float.\n    - Each item in 'reads' must be a tuple of",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 1,
+      "parse_error": "exec failed: SyntaxError: invalid syntax (<string>, line 1)",
+      "precondition_src": "def precondition(reads: list[tuple[str, str]], threshold: float) -> bool:\n    \"\"\"\n    Checks if the inputs conform to the function's intended domain.\n    \"\"\"\n    if not isinstance(reads, list):\n        return False\n    if not isinstance(threshold, (int, float)):\n        return False\n\n    # Check each read in",
+      "postcondition_src": ""
+    }
+  ],
+  "n_mutants": 8,
+  "mutation_kill_rates": {
+    "groq:llama-3.3-70b-versatile#0": {
+      "kills": 8,
+      "total": 8,
+      "rate": 1.0
+    },
+    "groq:llama-3.3-70b-versatile#1": {
+      "kills": 3,
+      "total": 8,
+      "rate": 0.375
+    }
+  },
+  "n_disagreements": 0,
+  "disagreement_examples": [],
+  "per_spec_twin_count": {
+    "groq:llama-3.3-70b-versatile#0": 0,
+    "groq:llama-3.3-70b-versatile#1": 3
+  },
+  "n_twins_total": 3,
+  "twins": [
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#1",
+      "distance": 0.4382142857142857,
+      "strategy": "Return a constant value that the spec happens to permit (e.g. always True, the empty string/list, 0).",
+      "source": "def filter_reads_by_quality(\n    reads: list[tuple[str, str]], threshold: float\n) -> list[tuple[str, str]]:\n    return []\n",
+      "round": 0
+    },
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#1",
+      "distance": 0.15357142857142858,
+      "strategy": "Use a lookup table that hard-codes a few specific input/output pairs; return a default for everything else.",
+      "source": "def filter_reads_by_quality(\n    reads: list[tuple[str, str]], threshold: float\n) -> list[tuple[str, str]]:\n    lookup_table = {\n        (((\"A\", \"I\"),), 20.0): [(\"A\", \"I\")],\n        (((\"AT\", \"II\"),), 40.0): [(\"AT\", \"II\")],\n        (((\"AT\", \"I!\"),), 20.0): [],\n        (((\"A\", \"!\"),), 20.0): [],\n        (((\"A\", \"\"),), 0.0): [],\n    }\n    key = (tuple(reads), threshold)\n    return lookup_table.get(key, [])\n",
+      "round": 1
+    },
+    {
+      "spec_id": "groq:llama-3.3-70b-versatile#1",
+      "distance": 0.255,
+      "strategy": "Recursively call a helper that always bottoms out at a constant; the spec may not constrain the recursive path.",
+      "source": "def filter_reads_by_quality(reads: list[tuple[str, str]], threshold: float) -> list[tuple[str, str]]:\n    def helper(reads, threshold, result):\n        if not reads:\n            return result\n        seq, qual = reads[0]\n        if qual:\n            mean_q = sum(ord(c) - 33 for c in qual) / len(qual)\n            return helper(reads[1:], threshold, result + [read for read in [reads[0]] if mean_q >= threshold or (seq, qual) == (\"A\", \"I\")])\n        return helper(reads[1:], threshold, result)\n    return helper(reads, threshold, [])\n",
+      "round": 1
+    }
+  ],
+  "elapsed_s": 66.89790415763855
+}

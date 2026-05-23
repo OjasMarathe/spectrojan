@@ -1,0 +1,44 @@
+[
+  {
+    "model": "groq:llama-3.3-70b-versatile",
+    "attempt": 0,
+    "parse_error": null,
+    "precondition": "def precondition(seq: str) -> bool:\n    return isinstance(seq, str)",
+    "postcondition": "def postcondition(seq: str, result: bool) -> bool:\n    return isinstance(result, bool) and (result == True or not seq)"
+  },
+  {
+    "model": "groq:llama-3.3-70b-versatile",
+    "attempt": 1,
+    "parse_error": null,
+    "precondition": "def precondition(seq: str) -> bool:\n    \"\"\"Check if input is in the function's intended domain\"\"\"\n    return isinstance(seq, str)",
+    "postcondition": "def postcondition(seq: str, result: bool) -> bool:\n    \"\"\"Check if output is valid for the given input\"\"\"\n    return isinstance(result, bool) and (not seq or result == True or result == False)"
+  },
+  {
+    "model": "groq:llama-3.3-70b-versatile",
+    "attempt": 2,
+    "parse_error": null,
+    "precondition": "def precondition(seq: str) -> bool:\n    \"\"\"Checks if input is in the domain of the function\"\"\"\n    return isinstance(seq, str)",
+    "postcondition": "def postcondition(seq: str, result: bool) -> bool:\n    \"\"\"Checks if the output is valid for the given input\"\"\"\n    if seq == \"\":\n        return result\n    return result in [True, False]"
+  },
+  {
+    "model": "gemini:gemini-2.5-flash",
+    "attempt": 0,
+    "parse_error": "api_error: ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}",
+    "precondition": "",
+    "postcondition": ""
+  },
+  {
+    "model": "gemini:gemini-2.5-flash",
+    "attempt": 1,
+    "parse_error": "exec failed: SyntaxError: invalid syntax (<string>, line 1)",
+    "precondition": "def precondition(seq: str) -> bool:\n    \"\"\"\n    Checks if the input 'seq' is valid for the is_safe_sequence function.\n    'seq' must be a string consisting only of ASCII characters.\n    \"\"\"\n    return isinstance(seq, str) and seq.isascii()",
+    "postcondition": "def postcondition(seq: str, result: bool"
+  },
+  {
+    "model": "gemini:gemini-2.5-flash",
+    "attempt": 2,
+    "parse_error": null,
+    "precondition": "def precondition(seq: str) -> bool:\n    \"\"\"\n    Returns True if the input 'seq' is a string containing only ASCII characters.\n    \"\"\"\n    return isinstance(seq, str) and seq.isascii()",
+    "postcondition": "def postcondition(seq: str, result: bool) -> bool:\n    \"\"\"\n    Returns True if 'result' is a valid output for the given 'seq'.\n    - 'result' must be a boolean.\n    - If 'seq' is empty, 'result' must be True.\n    - For non-empty 'seq', any boolean 'result' is considered valid\n      as the specific safety criteria are not provided.\n    \"\"\"\n    # Rule 1: The result must be a boolean.\n    if not isinstance(result, bool):\n        return False\n\n    # Rule 2: Empty input is considered safe.\n    if seq == \"\":\n        return result is True\n\n    # Rule 3: For non-empty sequences, any boolean outcome is valid\n    # because the specific criteria for \"safety\" are unknown.\n    return True"
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "target": "reverse_complement",
+  "domain": "bio",
+  "intent_only": true,
+  "started_at": "2026-05-22T14:40:06",
+  "n_specs_requested": 4,
+  "n_specs_usable": 2,
+  "specs": [
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 0,
+      "parse_error": null,
+      "precondition_src": "def precondition(seq: str) -> bool:\n    return set(seq).issubset('ACGTacgt')",
+      "postcondition_src": "def postcondition(seq: str, result: str) -> bool:\n    complement = str.maketrans('ACGTacgt', 'TGCAtgca')\n    expected = seq.translate(complement)[::-1]\n    return result == expected"
+    },
+    {
+      "model": "groq:llama-3.3-70b-versatile",
+      "attempt_id": 1,
+      "parse_error": null,
+      "precondition_src": "def precondition(seq: str) -> bool:\n    \"\"\"Check if the input sequence is in the domain of DNA characters.\"\"\"\n    return all(base in 'ACGTacgt' for base in seq)",
+      "postcondition_src": "def postcondition(seq: str, result: str) -> bool:\n    \"\"\"Check if the result is a valid reverse complement of the input sequence.\"\"\"\n    complement_map = str.maketrans('ACGTacgt', 'TGCAtgca')\n    expected_result = seq.translate(complement_map)[::-1]\n    return result == expected_result"
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 0,
+      "parse_error": "exec failed: SyntaxError: invalid syntax (<string>, line 1)",
+      "precondition_src": "def precondition(seq: str) -> bool:\n    \"\"\"\n    Returns True iff the input 'seq' is a valid DNA sequence according to the\n    function's domain specification.\n    \"\"\"\n    if not isinstance(seq, str):\n        return False\n    \n    allowed_chars = \"ACGTacgt\"\n    for char in seq:",
+      "postcondition_src": ""
+    },
+    {
+      "model": "gemini:gemini-2.5-flash",
+      "attempt_id": 1,
+      "parse_error": "api_error: ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 49.957823206s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '49s'}]}}",
+      "precondition_src": "",
+      "postcondition_src": ""
+    }
+  ],
+  "n_mutants": 2,
+  "mutation_kill_rates": {
+    "groq:llama-3.3-70b-versatile#0": {
+      "kills": 2,
+      "total": 2,
+      "rate": 1.0
+    },
+    "groq:llama-3.3-70b-versatile#1": {
+      "kills": 2,
+      "total": 2,
+      "rate": 1.0
+    }
+  },
+  "n_disagreements": 0,
+  "disagreement_examples": [],
+  "per_spec_twin_count": {
+    "groq:llama-3.3-70b-versatile#0": 0,
+    "groq:llama-3.3-70b-versatile#1": 0
+  },
+  "n_twins_total": 0,
+  "twins": [],
+  "elapsed_s": 33.293975830078125
+}

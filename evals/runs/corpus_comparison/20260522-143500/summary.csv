@@ -1,0 +1,17 @@
+target,domain,intent_only,n_specs_usable,n_mutants,n_disagreements,n_twins_total,n_specs_with_twins,elapsed_s
+count_kmers,bio,True,2,18,0,3,2,41.9
+filter_reads_by_quality,bio,True,2,8,0,3,1,66.9
+find_orfs,bio,True,1,20,0,1,1,97.2
+gc_content,bio,True,1,9,0,0,0,27.3
+hamming_distance,bio,True,0,0,0,0,0,12.2
+is_safe_sequence,bio,True,2,1,3,0,0,34.5
+melting_temperature,bio,True,0,0,0,0,0,14.1
+parse_fasta,bio,True,0,0,0,0,0,12.1
+reverse_complement,bio,True,2,2,0,0,0,33.3
+transcribe,bio,True,0,0,0,0,0,12.0
+translate,bio,True,0,0,0,0,0,12.1
+is_balanced,generic,True,0,0,0,0,0,20.0
+binary_search,generic,True,0,0,0,0,0,24.9
+gcd,generic,True,0,0,0,0,0,13.0
+kth_largest,generic,True,1,15,0,0,0,32.7
+merge_intervals,generic,True,0,0,0,0,0,12.2
