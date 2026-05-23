@@ -6,7 +6,7 @@
 
 **Submission for [The Secure Program Synthesis Hackathon](https://www.apartresearch.com/event/secure-program-synthesis), Track 2 (Specification Validation), 2026.**
 
-📄 **Read the report:** [`reports/SpecTrojan_Submission.docx`](reports/SpecTrojan_Submission.docx) · 🎬 **Watch the 3-min demo:** ⟨link to be added⟩ · 📊 **Reproduce headline finding:** `python3 scripts/run_bio_honeypot.py`
+📄 **Read the report:** [`reports/SpecTrojan_Submission.docx`](reports/SpecTrojan_Submission.docx) · 🎬 **Watch the demo video:** ⟨link to be added⟩ · 📊 **Reproduce headline finding:** `python3 scripts/run_bio_honeypot.py`
 
 ---
 
@@ -31,9 +31,9 @@ In a single 60-second run, SpecTrojan synthesized **16 distinct evil twins** acr
 
 ## The thesis
 
-Every spec-validation tool we are aware of searches the **input space** — finding a single input where the spec mishandles. SpecTrojan searches the **implementation space** — synthesizing an entire alternative program the spec also admits.
+Every spec-validation tool I am aware of searches the **input space** — finding a single input where the spec mishandles. SpecTrojan searches the **implementation space** — synthesizing an entire alternative program the spec also admits.
 
-A bad input is *evidence*. An **Evil Twin implementation** is an *artifact-level proof* of insufficiency, readable in 30 seconds: *"both of these functions satisfy the same spec, but they disagree on the things we actually care about. The spec failed."*
+A bad input is *evidence*. An **Evil Twin implementation** is an *artifact-level proof* of insufficiency, readable in 30 seconds: *"both of these functions satisfy the same spec, but they disagree on the things I actually care about. The spec failed."*
 
 Why it matters for biosecurity: LLMs increasingly write bio-pipeline code — sequence screeners, lab-automation glue, BLAST result filters. When the same LLM authors both the screener *and* its specification, the verification is hollow if the spec is weak. SpecTrojan demonstrates this concretely with the **Bio Honeypot**.
 
