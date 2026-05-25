@@ -4,9 +4,9 @@
 
 **SpecTrojan** validates LLM-generated specifications by *adversarially synthesizing alternative implementations* that satisfy the spec but exhibit obviously wrong behavior. When formal verification succeeds against a weak spec, what gets verified is a Trojan Horse — a function that passes the contract but hides a different program inside.
 
-**Submission for [The Secure Program Synthesis Hackathon](https://www.apartresearch.com/event/secure-program-synthesis), Track 2 (Specification Validation), 2026.**
+**Submission for [The Secure Program Synthesis Hackathon]([https://www.apartresearch.com/event/secure-program-synthesis](https://apartresearch.com/sprints/secure-program-synthesis-hackathon-2026-05-22-to-2026-05-24)), Track 2 (Specification Validation), 2026.**
 
-📄 **Read the report:** [`reports/SpecTrojan_Submission.docx`](reports/SpecTrojan_Submission.docx) · 🎬 **Watch the demo video:** ⟨link to be added⟩ · 📊 **Reproduce headline finding:** `python3 scripts/run_bio_honeypot.py`
+📄 **Read the report:** [`reports/SpecTrojan_Submission.docx`](reports/SpecTrojan_Submission.docx) · 🎬 **Watch the demo video:** ⟨[https://youtu.be/dzWM0CX3TfM]⟩ · 📊 **Reproduce headline finding:** `python3 scripts/run_bio_honeypot.py`
 
 ---
 
